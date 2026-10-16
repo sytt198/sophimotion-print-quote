@@ -1,0 +1,77 @@
+/* SophiMotion starter tokens. Map to existing project tokens when applicable. */
+:root {
+  --sm-brand: #0057ff;
+  --sm-on-brand: #ffffff;
+  --sm-font: Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --sm-content-max: 75rem;
+  --sm-radius-control: 0.5rem;
+  --sm-radius-card: 0.75rem;
+  --sm-space-1: 0.25rem;
+  --sm-space-2: 0.5rem;
+  --sm-space-3: 0.75rem;
+  --sm-space-4: 1rem;
+  --sm-space-6: 1.5rem;
+  --sm-space-8: 2rem;
+  --sm-space-12: 3rem;
+  --sm-space-16: 4rem;
+  --sm-space-24: 6rem;
+  --sm-motion-fast: 160ms;
+  --sm-motion-normal: 240ms;
+  --sm-ease: cubic-bezier(0.2, 0, 0, 1);
+}
+:root, :root[data-theme="light"] {
+  color-scheme: light;
+  --sm-bg: #ffffff;
+  --sm-surface: #f6f7f9;
+  --sm-elevated: #ffffff;
+  --sm-text: #15171c;
+  --sm-muted: #565e6c;
+  --sm-border: #dfe3e9;
+  --sm-control-border: #737c8c;
+  --sm-link: #0057ff;
+  --sm-focus: #0057ff;
+  --sm-brand-hover: #0049d6;
+  --sm-brand-active: #003db3;
+  --sm-tint: #f1f5ff;
+  --sm-danger: #b42318;
+  --sm-success: #16713c;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --sm-bg: #111318;
+    --sm-surface: #1b1e25;
+    --sm-elevated: #232730;
+    --sm-text: #f5f6f8;
+    --sm-muted: #b0b7c4;
+    --sm-border: #363c47;
+    --sm-control-border: #7c8698;
+    --sm-link: #8ab4ff;
+    --sm-focus: #8ab4ff;
+    --sm-brand-hover: #0049d6;
+    --sm-brand-active: #003db3;
+    --sm-tint: #182745;
+    --sm-danger: #ffaaa2;
+    --sm-success: #79d9a0;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --sm-bg: #111318;
+  --sm-surface: #1b1e25;
+  --sm-elevated: #232730;
+  --sm-text: #f5f6f8;
+  --sm-muted: #b0b7c4;
+  --sm-border: #363c47;
+  --sm-control-border: #7c8698;
+  --sm-link: #8ab4ff;
+  --sm-focus: #8ab4ff;
+  --sm-brand-hover: #0049d6;
+  --sm-brand-active: #003db3;
+  --sm-tint: #182745;
+  --sm-danger: #ffaaa2;
+  --sm-success: #79d9a0;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --sm-motion-fast: 0ms; --sm-motion-normal: 0ms; }
+}

@@ -1,0 +1,10 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { calculatePart, calculateOrder } from '../src/quote.js';
+const base={process:'fdm',volume:8,area:24,closed:true,quantity:2,density:1.24,price:100,fill:20,wall:1,support:0,loss:10,hours:1,hourRate:10,post:2,setup:5,markup:20,minimum:0,weightOverride:null,volumeOverride:null};
+test('FDM shell estimate, quantity and row time are charged once',()=>{const r=calculatePart(base);assert.ok(Math.abs(r.weight-4.80128)<1e-8);assert.equal(r.material,0.48);assert.equal(r.cost,29.96);assert.equal(r.sale,35.95);const grouped=calculatePart({...base,rowHours:1});assert.equal(grouped.cost,19.96);});
+test('resin solid consumption and manual slicer override',()=>{assert.equal(calculatePart({...base,process:'resin',density:1.1,loss:0}).weight,8.8);assert.equal(calculatePart({...base,weightOverride:50}).weight,50);});
+test('open mesh requires manual volume or slicer weight',()=>{assert.equal(calculatePart({...base,closed:false}).ready,false);assert.equal(calculatePart({...base,closed:false,volumeOverride:8}).ready,true);assert.equal(calculatePart({...base,closed:false,weightOverride:10}).ready,true);});
+test('missing support and hours remain draft; explicit zero is valid',()=>{assert.equal(calculatePart({...base,support:null}).ready,false);assert.equal(calculatePart({...base,hours:null}).ready,false);assert.equal(calculatePart({...base,hours:0}).ready,true);});
+test('minimum, discount and tax round to cents',()=>{const r=calculatePart({...base,minimum:50});assert.equal(r.sale,50);assert.equal(r.minimumAdjustment,14.05);const o=calculateOrder([r],{shipping:10,discount:5,tax:13});assert.equal(o.subtotal,55);assert.equal(o.tax,7.15);assert.equal(o.total,62.15);});
+test('reject negative, infinity and noninteger quantities',()=>{for(const edit of [{density:-1},{hours:Infinity},{quantity:1.5},{fill:101}])assert.throws(()=>calculatePart({...base,...edit}));assert.throws(()=>calculateOrder([],{shipping:0,discount:5,tax:0}));});
